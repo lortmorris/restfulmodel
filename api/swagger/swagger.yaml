@@ -11,6 +11,45 @@ produces:
   - application/json
 
 paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: get all users (search)
+      x-swagger-router-controller: users.search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          type: string
+          description: search inside email and fname and lname
+
+      responses:
+        '200':
+          description: users list
+          schema:
+            $ref: '#/definitions/user'
+
+    put:
+      tags:
+        - users
+      summary: insert user
+      x-swagger-router-controller: users.insert
+      parameters:
+        - name: user
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/user'
+
+      responses:
+        '200':
+          description: users added
+          schema:
+            $ref: '#/definitions/user'
+
+
+
   /server/time:
     get:
       tags:
@@ -40,6 +79,16 @@ paths:
 
 
 definitions:
+  user:
+    type: object
+    properties:
+      fname:
+        type: string
+      lname:
+        type: string
+      email:
+        type: string
+
   about:
     type: object
     properties:
