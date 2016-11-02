@@ -19,4 +19,4 @@ function Server(main) {
 	};
 }
 
-module.exports = About;
+module.exports = Server;
