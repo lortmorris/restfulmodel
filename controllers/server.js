@@ -10,6 +10,7 @@ function Server(main) {
 		'time': (req, res, next)=> {
 			debug(".time called");
 
+
 			res.json({
 				'date': new Date()
 			});
@@ -18,4 +19,4 @@ function Server(main) {
 	};
 }
 
-module.exports = Server;
+module.exports = About;
