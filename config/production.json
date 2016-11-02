@@ -1,57 +1,30 @@
 {
-  "db": "mongodb://127.0.0.1:27017/farmasun",
-  "collections": [
-    "users",
-    "clients",
-    "items",
-    "itemsstock",
-    "logs",
-    "sessions",
-    "farmacias",
-    "farmaciasclientes",
-    "precioslistasdetalle",
-    "carts",
-    "promotions"
-  ],
-  "domain":"app.drogueriafarmasun.com.ar",
+  "db": {
+    "host": "mongodb://127.0.0.1:27017/restful",
+    "collections": ["logs"]
+  },
+  "domain": "localhost",
   "server": {
     "dbConnectionRetry": true,
     "maxConnectionRetryTime": 60,
     "port": 5000
   },
   "app": {
-    "url": "http://app.drogueriafarmasun.com.ar/"
+    "url": "http://127.0.0.1:5000/"
   },
   "service": {
     "protocol": "http://",
-    "host": "app.drogueriafarmasun.com.ar",
+    "host": "localhost:5000",
     "pathname": "/service"
   },
   "redis": {
-    "host": "127.0.0.1",
-    "port": 6379
-  },
-  "logs": {
-    "screenshotFolder": "/dev/shm"
-  },
-  "mysql": {
-    "host": "localhost",
-    "user": "root",
-    "password": "root",
-    "database": "farmasun_app"
-  },
-  "email": {
-    "from": "Droguería Farmasun <appnoreply@drogueriafarmasun.com.ar>",
-    "subject": "Droguería Farmasun : Notificación",
-    "smtpConfig": {
-      "host": "smtp.gmail.com",
-      "port": 465,
-      "secure": true,
-      // use SSL
-      "auth": {
-        "user": "appnoreply@drogueriafarmasun.com.ar",
-        "pass": "Pedidos2016"
+    "hosts": [
+      {
+        "host": "127.0.0.1",
+        "port": 6379
       }
-    }
+    ],
+    "mastername": "master"
   }
+
 }
