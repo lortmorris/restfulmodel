@@ -22,7 +22,6 @@ function wrapHandler(handler, announce) {
 				if (err) {
 					debug(err);
 
-					announce('farmasun:error', err.message ? err.message : err);
 					// send 503 and error as string
 					res.status(503).json({
 						code: 'controller_error',
@@ -35,7 +34,6 @@ function wrapHandler(handler, announce) {
 			});
 		} catch (e) {
 			debug(e);
-			announce('farmasun:error', e.message ? e.message : err);
 
 			res.status(503).json({
 				code: 'controller_error',
@@ -75,16 +73,13 @@ function makeControllers(main) {
 
 	let controllers = {
 		'about': require("./about")(main),
-		'server': require('./server')(main),
-		'users': require('./users')(main)
+		'universal': require('./universal')(main)
 	};
 
 
 	return wrapControllers({
 		'about.about_get': controllers.about.about,
-		'server.time_get': controllers.server.time,
-		'users.search_get': controllers.users.search,
-		'users.insert_put': controllers.users.insert
+		'universal.search_get': controllers.universal.search
 	}, main.announce);
 }
 

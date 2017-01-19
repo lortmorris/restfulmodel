@@ -11,54 +11,6 @@ produces:
   - application/json
 
 paths:
-  /users:
-    get:
-      tags:
-        - users
-      summary: get all users (search)
-      x-swagger-router-controller: users.search
-      parameters:
-        - name: q
-          in: query
-          required: false
-          type: string
-          description: search inside email and fname and lname
-
-      responses:
-        '200':
-          description: users list
-          schema:
-            $ref: '#/definitions/user'
-
-    put:
-      tags:
-        - users
-      summary: insert user
-      x-swagger-router-controller: users.insert
-      parameters:
-        - name: user
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/user'
-
-      responses:
-        '200':
-          description: users added
-          schema:
-            $ref: '#/definitions/user'
-
-
-
-  /server/time:
-    get:
-      tags:
-        - hours
-      summary: the local server time
-      x-swagger-router-controller: server.time
-      responses:
-        '200':
-          description: the local server time answer
 
   /about:
     get:
@@ -78,17 +30,49 @@ paths:
             $ref: '#/definitions/about'
 
 
+  /countries:
+    get:
+      tags:
+        - countries
+      summary: countries list
+      x-swagger-router-controller: universal.search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          type: string
+        - name: page
+          in: query
+          required: true
+          type: number
+          default: 1
+        - name: sorting
+          in: query
+          required: false
+          description: sorting by field
+          type: string
+        - name: limit
+          in: query
+          type: number
+          required: true
+          default: 30
+      responses:
+        '200':
+          description: countries list
+          schema:
+            $ref: '#/definitions/country'
+
 definitions:
-  user:
+  country:
     type: object
     properties:
-      fname:
+      cca2:
         type: string
-      lname:
-        type: string
-      email:
-        type: string
-
+      name:
+        type: object
+        properties:
+          common:
+            type: string
   about:
     type: object
     properties:

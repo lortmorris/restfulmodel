@@ -1,7 +1,7 @@
 {
   "db": {
-    "host": "mongodb://127.0.0.1:27017/restful",
-    "collections": ["logs", "users"]
+    "host": "mongodb://127.0.0.1:27017/geo",
+    "collections": ["logs", "users","countries"]
   },
   "domain": "localhost",
   "server": {

@@ -17,9 +17,8 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const debug = require('debug')('restfulmodel:app');
 const mongojs = require('mongojs');
-const redisSentinel = require('redis-sentinel');
-const redis = require('redis');
-const Users  = require('./lib/Users');
+const Universal = require('./lib/universal');
+
 
 /**
  * Build the main application
@@ -55,12 +54,6 @@ function app(config) {
 			})
 			.then(()=> {
 				return self.io();
-			})
-			.then(()=> {
-				return self.redisClient();
-			})
-			.then(()=> {
-				return self.announce();
 			})
 			.then(()=> {
 				return self.libs();
@@ -162,47 +155,6 @@ app.prototype.io = function () {
 	});
 }
 
-/**
- * create redisClient or sentinel instance, use own redis lib (return sentinel instance or redisClient). Inject the instance into main object.
- * @returns {Promise}
- */
-/**
- * create redisClient or sentinel instance, use own redis lib (return sentinel instance or redisClient). Inject the instance into main object.
- * @returns {Promise}
- */
-app.prototype.redisClient = function () {
-	var self = this;
-	debug("redisClient");
-
-	let redisConf = self.main.config.get('redis');
-
-
-	return new Promise((resolve, reject)=> {
-
-		if (redisConf.hosts.length == 1) self.main.redis = redis.createClient(redisConf.hosts);
-		else self.main.redisClient = redis.createClient(self.main.config.get('redis').hosts, self.main.config.get('redis').mastername);
-		resolve({redisClient: self.main.redisClient});
-	});
-}
-
-
-/**
- * Socket.io emit message. Using into controllers/index.js for wrapHandler
- * @returns {Promise}
- */
-app.prototype.announce = function () {
-	var self = this;
-	debug("announce...");
-
-	return new Promise((resolve, reject)=> {
-		self.main.announce = function () {
-			var args = Array.prototype.slice.apply(arguments);
-			self.main.io.sockets.emit.apply(self.main.io.sockets, args);
-		};
-
-		resolve({announce: self.main.announce});
-	});
-}
 
 
 /**
@@ -216,7 +168,7 @@ app.prototype.libs = function () {
 		self.main.libs = {};
 		self.main.libs.http = http;
 		self.main.libs.moment = moment;
-		self.main.libs.users = new Users(self.main);
+		self.main.libs.Universal = new Universal(self.main);
 
 		resolve(self.main.libs);
 	});
