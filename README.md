@@ -9,5 +9,6 @@ Powered by: César Casas
 $ git clone https://github.com/lortmorris/restfulmodel.git
 $ cd restfulmodel
 $ npm install
+$ mongoimport -d restful -c countries --file ./data/countries.json
 $ node bin/www
 ```
