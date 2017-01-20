@@ -61,18 +61,57 @@ paths:
           description: countries list
           schema:
             $ref: '#/definitions/country'
+    put:
+      tags:
+        - countries
+      summary: cpuntry
+      x-swagger-router-controller: universal.insert
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/country'
+      responses:
+        '200':
+          description: added operations_phone
+          schema:
+            $ref: '#/definitions/country'
+
+    delete:
+      tags:
+        - countries
+      summary: delete countries
+      x-swagger-router-controller: universal.remove
+      parameters:
+        - name: _id
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: deleted country
+          schema:
+            $ref: '#/definitions/country'
+
+    patch:
+      tags:
+        - countries
+      summary: options country
+      x-swagger-router-controller: universal.update
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/country'
+      responses:
+        '200':
+          description: updated country
+          schema:
+            $ref: '#/definitions/country'
 
 definitions:
-  country:
-    type: object
-    properties:
-      cca2:
-        type: string
-      name:
-        type: object
-        properties:
-          common:
-            type: string
   about:
     type: object
     properties:
@@ -80,3 +119,87 @@ definitions:
         type: string
       name:
         type: string
+  country:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: object
+        properties:
+          common:
+            type: string
+          official:
+            type: string
+
+          native:
+            type: object
+            properties:
+              official:
+                type: string
+              common:
+                type: string
+      tld:
+        type: array
+        items:
+          type: string
+
+      cca2:
+        type: string
+      ccn3:
+        type: string
+      cca3:
+        type: string
+      cioc:
+        type: string
+      currency:
+        type: array
+        items:
+          type: string
+      callingCode:
+        type: array
+        items:
+          type: string
+      capital:
+        type: string
+      altSpellings:
+        type: array
+        items:
+          type: string
+      region:
+        type: string
+      subregion:
+        type: string
+      languages:
+        type: object
+      translations:
+        type: object
+        properties:
+          official:
+            type: string
+          common:
+            type: string
+      latlng:
+        type: array
+        items:
+          type: number
+      demonym:
+        type: string
+      landlocked:
+        type: boolean
+      borders:
+        type: array
+        items:
+          type: string
+      area:
+        type: number
+      states:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: string
+          
