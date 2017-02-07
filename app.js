@@ -5,7 +5,6 @@
 
 const express = require("express");
 const http = require("http");
-const socket = require('socket.io');
 const swaggerTools = require('swagger-tools');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -35,8 +34,7 @@ function app(config) {
 	self.main = {
 		config: config,
 		db: mongojs(config.get('db.host'), config.get('db.collections')),
-		restEndpoint: config.get('service.protocol') + config.get('service.host') + config.get('service.pathname'),
-		sockets: {}
+		restEndpoint: config.get('service.protocol') + config.get('service.host') + config.get('service.pathname')
 	};
 
 
@@ -51,10 +49,7 @@ function app(config) {
 		self.swaggerDoc()
 			.then(()=> {
 				return self.getApp();
-			})
-			.then(()=> {
-				return self.io();
-			})
+			})			
 			.then(()=> {
 				return self.libs();
 			})
@@ -119,39 +114,6 @@ app.prototype.getApp = function () {
 
 		self.main.server = http.createServer(self.main.app);
 		resolve({app: self.main.app, server: self.main.server});
-	});
-}
-
-/**
- * create socket.io instance and inject into main object
- * @returns {Promise}
- */
-app.prototype.io = function () {
-	var self = this;
-
-	debug("io...");
-
-	return new Promise((resolve, reject)=> {
-		let pathName = self.main.config.get('service.pathname');
-		debug(pathName + '/socket.io');
-		self.main.io = socket.listen(self.main.server);
-
-
-		let io = self.main.io;
-
-
-		io.on('connection', (socket)=> {
-
-			debug("Socket.io connected: " + socket.id);
-			self.main.sockets[socket.id] = socket;
-			self.main.sockets[socket.created] = new Date();
-
-			socket.on('disconnect', ()=> {
-				delete self.main.sockets[socket.id];
-			});
-		});
-
-		resolve({io: self.main.io});
 	});
 }
 

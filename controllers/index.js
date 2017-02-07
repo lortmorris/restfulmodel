@@ -11,10 +11,9 @@ const debug = require('debug')('restful:controllers:index');
 /**
  * wrap all controllers (redefine the 'next'. If next has argument, throw error (redis and res.json.end).
  * @param {function} handler - The function for controller.
- * @param {object} announce - The socket.io method for notify to channel 'bot-api:error'
  * @returns {Function} - the wrap function.
  */
-function wrapHandler(handler, announce) {
+function wrapHandler(handler) {
 	debug("wrapHandler called");
 	return (req, res, next) => {
 		try {
@@ -47,14 +46,13 @@ function wrapHandler(handler, announce) {
 /**
  * each the controllers function and call to wrap function.
  * @param {object} controllers - The controllers list (object)
- * @param {object} announce - the socket.io method for send notification
  * @returns {*}
  */
-function wrapControllers(controllers, announce) {
+function wrapControllers(controllers) {
 	debug("wrapControllers called");
 	for (var k in controllers) {
 		debug("setting wrapHandler to: " + k);
-		controllers[k] = wrapHandler(controllers[k], announce);
+		controllers[k] = wrapHandler(controllers[k]);
 	}
 
 	return controllers;
@@ -79,7 +77,12 @@ function makeControllers(main) {
 
 	return wrapControllers({
 		'about.about_get': controllers.about.about,
-		'universal.search_get': controllers.universal.search
+		'universal.search_get': controllers.universal.search,
+		'universal.insert_put': controllers.universal.insert,
+		'universal.remove_delete': controllers.universal.remove,
+		'universal.update_patch': controllers.universal.update,
+		'universal.today_get': controllers.universal.today,
+		'universal.insertorcount_put': controllers.universal.insertOrCount
 	}, main.announce);
 }
 
