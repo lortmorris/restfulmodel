@@ -1,4 +1,3 @@
-'use strict';
 const debug = require('debug')('restfulmodel:controller:universal');
 const subcontrollers = require('./subcontrollers');
 

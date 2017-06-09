@@ -1,7 +1,7 @@
 {
   "db": {
-    "host": "mongodb://127.0.0.1:27017/geo",
-    "collections": ["logs", "users","countries"]
+    "host": "mongodb://127.0.0.1:27017/restful",
+    "collections": ["countries"]
   },
   "domain": "localhost",
   "server": {
@@ -16,15 +16,5 @@
     "protocol": "http://",
     "host": "localhost:5000",
     "pathname": "/service"
-  },
-  "redis": {
-    "hosts": [
-      {
-        "host": "127.0.0.1",
-        "port": 6379
-      }
-    ],
-    "mastername": "master"
   }
-
 }

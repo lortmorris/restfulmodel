@@ -18,14 +18,21 @@
   },
   "homepage": "https://github.com/lortmorris/restfulmodel#readme",
   "dependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.5.2",
+    "babel-register": "^6.24.1",
     "compression": "^1.6.2",
-    "config": "^1.21.0",
-    "express": "^4.14.0",
-    "helmet": "^3.0.0",
-    "moment": "^2.15.2",
+    "config": "^1.26.1",
+    "debug": "^2.6.8",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "express": "^4.15.3",
+    "helmet": "^3.6.1",
+    "js-yaml": "^3.8.4",
     "mongojs": "^2.4.0",
-    "redis-sentinel": "^0.3.3",
-    "socket.io": "^1.5.1",
     "swagger-tools": "^0.10.1"
   }
 }

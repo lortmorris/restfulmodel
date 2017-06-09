@@ -1,8 +1,13 @@
 #RESTfull Model App
 
 This is a easy RESTFul model app, designed for Node.js + Express Application.
-Powered by: César Casas
-  
+Powered by: [César Casas] (https://ar.linkedin.com/in/cesarcasas)
+
+# Swagger
+Swagger is free standard API definition. Now, you can build applications from API definition!.     
+[swagger.io](http://swagger.io/)
+
+
 # Install & Run
 ## Install
 ```bash
