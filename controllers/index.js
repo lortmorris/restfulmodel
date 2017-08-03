@@ -1,11 +1,6 @@
-/* eslint-disable semi */
-"use strict";
+import Debug from 'debug';
 
-const debug = require('debug')('restful:controllers:index');
-
-/**
- * Create controllers for Application (swagger)
- */
+const debug = Debug('restful:controllers:index');
 
 
 /**
@@ -14,7 +9,7 @@ const debug = require('debug')('restful:controllers:index');
  * @returns {Function} - the wrap function.
  */
 function wrapHandler(handler) {
-	debug("wrapHandler called");
+	debug('wrapHandler called');
 	return (req, res, next) => {
 		try {
 			handler(req, res, (err) => {

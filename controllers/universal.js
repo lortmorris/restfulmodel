@@ -2,19 +2,19 @@ const debug = require('debug')('restfulmodel:controller:universal');
 const subcontrollers = require('./subcontrollers');
 
 function Universal(main) {
-  debug("init...");
+  debug('init...');
 
   return {
-    'insert': (req, res, next)=> {
-      debug(".insert called");
-      let params = req.swagger.params.modeldata.value;
+    insert: (req, res, next) => {
+      debug('.insert called');
+      const params = req.swagger.params.modeldata.value;
       params.added = new Date();
 
       subcontrollers(req.swagger.apiPath, 'insertbefore', main, params)
       .then((data)=>{
         return main.libs.Universal.insert(req.swagger.apiPath, data);
       })
-      .then((doc)=> {
+      .then((doc) => {
         return subcontrollers(req.swagger.apiPath, 'insert', main, params, doc);
       })
       .then((dataToResponse)=>{
