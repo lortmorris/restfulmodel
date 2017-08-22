@@ -1,0 +1,111 @@
+
+paths:
+  /messages:
+    get:
+      tags:
+        - messages
+      summary: messages list
+      x-swagger-router-controller: universal.search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          type: string
+        - name: page
+          in: query
+          required: true
+          type: number
+          default: 1
+        - name: sorting
+          in: query
+          required: false
+          description: sorting by field
+          type: string
+        - name: limit
+          in: query
+          type: number
+          required: true
+          default: 30
+      responses:
+        '200':
+          description: countries list
+          schema:
+            $ref: '#/definitions/message'
+    put:
+      tags:
+        - messages
+      summary: insert new message
+      x-swagger-router-controller: universal.insert
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/message'
+      responses:
+        '200':
+          description: added message
+          schema:
+            $ref: '#/definitions/message'
+
+    delete:
+      tags:
+        - messages
+      summary: delete message
+      x-swagger-router-controller: universal.remove
+      parameters:
+        - name: _id
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: deleted message
+          schema:
+            $ref: '#/definitions/message'
+
+    patch:
+      tags:
+        - messages
+      summary: options message
+      x-swagger-router-controller: universal.update
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/message'
+      responses:
+        '200':
+          description: updated message
+          schema:
+            $ref: '#/definitions/message'
+
+definitions:
+  message:
+    type: object
+    properties:
+      _id:
+        type: string
+      message:
+        type: string
+      replyTo:
+        type: string
+      user:
+        type: object
+        properties:
+          fname:
+            type: string
+          lname:
+            type: string
+          _id:
+            type: string
+      professional:
+        type: object
+        properties:
+          _id:
+            type: string
+          fname:
+            type: string
+          lname:
+            type: string

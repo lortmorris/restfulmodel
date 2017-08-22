@@ -1,0 +1,91 @@
+
+paths:
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: categories list
+      x-swagger-router-controller: universal.search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          type: string
+        - name: page
+          in: query
+          required: true
+          type: number
+          default: 1
+        - name: sorting
+          in: query
+          required: false
+          description: sorting by field
+          type: string
+        - name: limit
+          in: query
+          type: number
+          required: true
+          default: 30
+      responses:
+        '200':
+          description: countries list
+          schema:
+            $ref: '#/definitions/category'
+    put:
+      tags:
+        - categories
+      summary: insert new category
+      x-swagger-router-controller: universal.insert
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/category'
+      responses:
+        '200':
+          description: added category
+          schema:
+            $ref: '#/definitions/category'
+
+    delete:
+      tags:
+        - categories
+      summary: delete countries
+      x-swagger-router-controller: universal.remove
+      parameters:
+        - name: _id
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: deleted category
+          schema:
+            $ref: '#/definitions/category'
+
+    patch:
+      tags:
+        - categories
+      summary: options country
+      x-swagger-router-controller: universal.update
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/category'
+      responses:
+        '200':
+          description: updated category
+          schema:
+            $ref: '#/definitions/category'
+
+definitions:
+  category:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string

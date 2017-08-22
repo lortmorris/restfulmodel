@@ -1,0 +1,129 @@
+
+paths:
+  /professionals:
+    get:
+      tags:
+        - professionals
+      summary: professionals list
+      x-swagger-router-controller: universal.search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          type: string
+        - name: page
+          in: query
+          required: true
+          type: number
+          default: 1
+        - name: sorting
+          in: query
+          required: false
+          description: sorting by field
+          type: string
+        - name: limit
+          in: query
+          type: number
+          required: true
+          default: 30
+      responses:
+        '200':
+          description: professionals list
+          schema:
+            $ref: '#/definitions/professional'
+    put:
+      tags:
+        - professionals
+      summary: insert new professional
+      x-swagger-router-controller: universal.insert
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/professional'
+      responses:
+        '200':
+          description: added professional
+          schema:
+            $ref: '#/definitions/professional'
+
+    delete:
+      tags:
+        - professionals
+      summary: delete professional
+      x-swagger-router-controller: universal.remove
+      parameters:
+        - name: _id
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: deleted professional
+          schema:
+            $ref: '#/definitions/professional'
+
+    patch:
+      tags:
+        - professionals
+      summary: options country
+      x-swagger-router-controller: universal.update
+      parameters:
+        - name: modeldata
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/professional'
+      responses:
+        '200':
+          description: updated professional
+          schema:
+            $ref: '#/definitions/professional'
+
+definitions:
+  professional:
+    type: object
+    properties:
+      _id:
+        type: string
+      fname:
+        type: string
+      lname:
+        type: string
+      category:
+        type: object
+        properties:
+          name:
+            type: string
+          _id:
+            type: string
+            minLength: 24
+            maxLength: 24
+      address:
+        type: object
+        properties:
+          street:
+            type: string
+          streetNumber:
+            type: string
+          block:
+            type: string
+          deparment:
+            type: string
+          floor:
+            type: string
+          location:
+            type: object
+            properties:
+              type:
+                type: string
+              coordinates:
+                type: array
+                items:
+                  type: number
+                  format: float
+      enabled:
+        type: boolean
+      score:
+        type: number

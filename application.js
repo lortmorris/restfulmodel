@@ -7,6 +7,7 @@ import fs from 'fs';
 import helmet from 'helmet';
 import compression from 'compression';
 import mongojs from 'mongojs';
+import lodash from 'lodash';
 import Debug from 'debug';
 import paginate from './lib/mongopage';
 import Universal from './lib/universal';
@@ -29,7 +30,9 @@ class App {
       restEndpoint: config.get('service.protocol') + config.get('service.host') + config.get('service.pathname'),
     };
 
+    setInterval(() => paginate(this.main.db), 1000 * 60 * 5);
     paginate(this.main.db);
+
     return new Promise((resolve, reject) => {
       this.swaggerDoc()
       .then(() => this.getApp())
@@ -45,9 +48,13 @@ class App {
     debug('running swaggerDoc');
 
     return new Promise((resolve) => {
-      const swaggerFile = path.join(__dirname, '/api/swagger/swagger.yaml');
-      const swaggerString = fs.readFileSync(swaggerFile, 'utf8');
-      const swaggerDoc = yaml.safeLoad(swaggerString);
+      const modules = ['swagger', 'categories', 'professionals', 'messages'];
+      const swaggerDoc = modules.reduce((acc, current) => {
+        const swaggerFile = path.join(__dirname, `/api/swagger/${current}.yaml`);
+        const swaggerString = fs.readFileSync(swaggerFile, 'utf8');
+        return lodash.merge(acc, yaml.safeLoad(swaggerString));
+      }, {});
+
       swaggerDoc.host = this.main.config.get('service.host');
       swaggerDoc.basePath = this.main.config.get('service.pathname');
       this.main.swaggerDoc = swaggerDoc;
