@@ -17,3 +17,59 @@ $ npm install
 $ mongoimport -d restful -c countries --file ./data/countries.json
 $ node bin/www
 ```
+
+
+# Example.
+
+## Mobile App
+- Professionals:
+```javascript
+{
+  _id,
+  fname: '',
+  lname: '',
+  category: {
+    name: '',
+    _id: ''
+  },
+  address: {
+    street: '',
+    streetNumber: '',
+    block: '',
+    department: '',
+    floor: '',
+    location: {
+      type: 'point',
+      coordinates: [0, 0],
+    },  
+  },
+  score: 0,
+  enabled: true,
+}
+```
+
+- Categories:
+```javascript
+  {
+    _id: '',
+    name: '',
+  }
+```
+- Messages:
+```javascript
+  {
+    _id: '',
+    user: {
+      fname: '',
+      lname: '',
+      _id: '',
+    },
+    message: '',
+    replyTo: null,
+    professional: {
+      _id: '',
+      fname: '',
+      lname: '',
+    },
+  }
+```
