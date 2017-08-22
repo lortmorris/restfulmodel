@@ -61,17 +61,14 @@ function wrapControllers(controllers) {
  */
 function makeControllers(main) {
 
-
 	debug("main function called");
 
-	let controllers = {
-		'about': require("./about")(main),
-		'universal': require('./universal')(main)
+	const controllers = {
+	   universal: require('./universal')(main)
 	};
 
 
 	return wrapControllers({
-		'about.about_get': controllers.about.about,
 		'universal.search_get': controllers.universal.search,
 		'universal.insert_put': controllers.universal.insert,
 		'universal.remove_delete': controllers.universal.remove,
