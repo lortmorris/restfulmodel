@@ -18,6 +18,9 @@ $ mongoimport -d restful -c countries --file ./data/countries.json
 $ node bin/www
 ```
 
+## Browser Swagger doc
+http://localhost:5000/service/docs/#/
+
 
 # Example.
 
