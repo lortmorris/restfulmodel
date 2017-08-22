@@ -48,7 +48,6 @@ class App {
       const swaggerFile = path.join(__dirname, '/api/swagger/swagger.yaml');
       const swaggerString = fs.readFileSync(swaggerFile, 'utf8');
       const swaggerDoc = yaml.safeLoad(swaggerString);
-
       swaggerDoc.host = this.main.config.get('service.host');
       swaggerDoc.basePath = this.main.config.get('service.pathname');
       this.main.swaggerDoc = swaggerDoc;
@@ -132,7 +131,6 @@ class App {
 
         app.use(middleware.swaggerMetadata());
         app.use(middleware.swaggerValidator(), formatValidationError);
-
         app.use(middleware.swaggerRouter(options));
 
         app.use((req, res, next, err) => {

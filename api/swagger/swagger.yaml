@@ -11,25 +11,6 @@ produces:
   - application/json
 
 paths:
-
-  /about:
-    get:
-      tags:
-        - about
-      summary: About this API
-      x-swagger-router-controller: about.about
-      parameters:
-        - name: name
-          in: query
-          required: false
-          type: string
-      responses:
-        '200':
-          description: About
-          schema:
-            $ref: '#/definitions/about'
-
-
   /countries:
     get:
       tags:
@@ -111,54 +92,7 @@ paths:
           schema:
             $ref: '#/definitions/country'
 
-  /categories:
-    get:
-      tags:
-        - olx
-      summary: cateogires list
-      x-swagger-router-controller: universal.search
-      parameters:
-        - name: q
-          in: query
-          required: false
-          type: string
-        - name: page
-          in: query
-          required: true
-          type: number
-          default: 1
-        - name: sorting
-          in: query
-          required: false
-          description: sorting by field
-          type: string
-        - name: limit
-          in: query
-          type: number
-          required: true
-          default: 30
-      responses:
-        '200':
-          description: countries list
-          schema:
-            $ref: '#/definitions/category'
-
-
 definitions:
-  about:
-    type: object
-    properties:
-      version:
-        type: string
-      name:
-        type: string
-  category:
-    type: object
-    properties:
-      href:
-        type: string
-      text:
-        type: string
   country:
     type: object
     properties:
