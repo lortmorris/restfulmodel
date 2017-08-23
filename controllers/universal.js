@@ -3,7 +3,7 @@ const subcontrollers = require('./subcontrollers');
 
 function Universal(main) {
   debug('init...');
-
+  const db = main.db;
   return {
     insert: (req, res, next) => {
       debug('.insert called');
@@ -68,7 +68,10 @@ function Universal(main) {
         q = {};
         parts.forEach((i) => {
           const k = i.split(':');
-          if (k.length === 2) q[k[0]] = RegExp(k[1], 'i');
+          if (k.length === 2) {
+            if (k[0][0] === '_') q[k[0]] = db.ObjectId(k[1]);
+            else q[k[0]] = RegExp(k[1], 'i');
+          }
         });
       }
 
