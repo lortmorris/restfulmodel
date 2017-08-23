@@ -60,8 +60,7 @@ function wrapControllers(controllers) {
  * @returns {object} - Controller object
  */
 function makeControllers(main) {
-
-	debug("main function called");
+  debug('main function called');
 
 	const controllers = {
 	   universal: require('./universal')(main)
